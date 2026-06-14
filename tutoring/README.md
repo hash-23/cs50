@@ -1,4 +1,4 @@
-# YOUR PROJECT TITLE
+# Tutoring Web App
 #### Video Demo:  https://youtu.be/6L1E50Ojuxw
 #### Description:
 For my final project, I wanted to create something to give back to my school community, so I developed a web app to host and organize a tutoring system in my school. The web app allows for older students to sign up as tutors and younger students to sign up as tutees. Once tutors add subjects to their list, tutees can pick a certain subject they would like help in, at which point they are immediately allocated an appropriate tutor. The tutor is chosen based on a selection algorithm that ensures that allocations are spread out evenly across tutors, to prevent one tutor from having too many tutees at once.
