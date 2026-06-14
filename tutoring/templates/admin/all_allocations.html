@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin - All Allocations
+{% endblock %}
+
+{% block main %}
+    <button onclick="location.href= '/admin'" class="btn btn-secondary" style="display:block">Back to Admin</button>
+
+    <h3 class="h3">All Allocations</h3>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <colgroup>
+                <col span="3">
+                <col span="3">
+                <col span="2">
+            </colgroup>
+            <tr>
+                <th  colspan="3" scope="colgroup">Tutor</th>
+                <th colspan="3" scope="colgroup">Tutee</th>
+                <th colspan="2" scope="colgroup">Details</th>
+                <th rowspan="2" scope="colgroup" style="width:7vw">Delete Allocation</th>
+            </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Year Group</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for current in allocations %}
+            <tr>
+                <td style="vertical-align:middle" >{{ current["tutor_id"] }}</td>
+                <td style="vertical-align:middle" >{{ current["tutor_name"] }}</td>
+                <td style="vertical-align:middle"><a href="https://mail.google.com/mail/u/0/?fs=1&to={{ current['tutor_email'] }}&tf=cm">{{ current['tutor_email'] }}</a></td>
+                <td style="vertical-align:middle">{{ current["tutee_id"] }}</td>
+                <td style="vertical-align:middle">{{ current["tutee_name"] }}</td>
+                <td style="vertical-align:middle"><a href="https://mail.google.com/mail/u/0/?fs=1&to={{ current['tutee_email'] }}&tf=cm">{{ current['tutee_email'] }}</a></td>
+                <td style="vertical-align:middle">{{ current["subject"] }}</td>
+                <td style="vertical-align:middle">Year {{ current["year"] }}</td>
+                <td><form action="/admin/all_allocations" method="post"><button class="btn btn-danger" type="submit" name="delete" value="{{ current['id'] }}">Delete</button></form></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Reserve
+{% endblock %}
+
+{% block main %}
+<!-- form to reserve a tutoring session-->
+<form method="post" action="/reserve">
+    <!-- select option to choose subject from available subjects in tutors database-->
+    <select class="form-select mb-3 mx-auto w-auto" name="subject">
+        <option selected disabled>Pick a Subject</option>
+        {% for subject in subjects %}
+            <option value="{{ subject['subject'] }}">{{ subject['subject'] }}</option>
+        {% endfor %}
+    </select>
+
+    <select class="form-select mb-3 mx-auto w-auto" name="year">
+        <option selected disabled>Year Group</option>
+        {% for year in range(7, 12) %}
+            <option value="{{ year }}">Year {{ year }}</option>
+        {% endfor %}
+    </select>
+
+    <!--<h5 class="h5">Preferred Days</h5> <!--OPTION TO SELECT MULTIPLE PREFERRED DAYS - IN DEVELOPMENT
+    {% for day in ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"] %}
+    <div class="mx-auto">
+        <input class="form-check-input mb-3" name="{{ day }}" type="checkbox" value="{{ day }}">
+        <label class="form-check-label" for="flexCheckDefault">
+            {{ day }}
+        </label>
+    </div>
+    {% endfor %}        INSERT FEATURE LATER (possibly after initial release)-->
+
+
+    <button class="btn btn-primary mb-3" type="submit">Submit</button>
+</form>
+
+<hr class="border border-2 opacity-50">
+
+<h4 class="mb-3">Don't see your subject? Request it below</h4>
+<form method="post" action="/requestSubject">
+    <input class="form-control mx-auto w-auto mb-3" name="newSubject" type="text" placeholder="Subject">
+    <button class="btn btn-primary mb-3" type="submit">Request</button>
+</form>
+
+
+{% endblock %}

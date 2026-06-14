@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    TutorUp!
+{% endblock %}
+
+{% block main %}
+<!-- show list of all allocations whether user is tutor or tutee-->
+<h1>Welcome {{ session["name"] }}</h1>
+{% if session["isTutor"] %}
+    <h3 class="h3">Your Tutees</h3>
+    <table class="table table-striped">
+        <thead>
+            <th scope="col" style="width:20vw">Name</th> <!-- list of names -->
+            <th scope="col" style="width:20vw">Year Group</th>
+            <th scope="col" style="width:30vw">Email Address</th>
+            <th scope="col" style="width:20vw">Subject</th>
+            <th scope="col" style="width:9vw">Delete Allocation</th>
+        </thead>
+        <tbody>
+
+            {% for row in people %}
+            <tr>
+                <td style="vertical-align:middle">{{ row["fname"] }} {{ row["sname"] }}</td>
+                <td style="vertical-align:middle">Year {{ row["tutee_year"] }}</td>
+                <td style="vertical-align:middle"><a href="https://mail.google.com/mail/u/0/?fs=1&to={{ row['email'] }}&tf=cm">{{ row["email"] }} </a></td>
+                <td style="vertical-align:middle">{{ row["subject"] }}</td>
+                <td><form action="/admin/all_allocations" method="post"><button class="btn btn-danger" type="submit" name="delete" value="{{ row['id'] }}">Delete</button></form></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+<!-- show list of allocations if user is tutee -->
+{% else %}
+    <h3 class="h3 mx-auto">Your Tutors</h3>
+    <table class="table table-striped">
+        <thead>
+            <th scope="col" style="width:27vw">Name</th>
+            <th scope="col" style="width:27vw">Email Address</th>
+            <th scope="col" style="width:27vw">Subject</th>
+            <th scope="col" style="width:9vw">Delete Allocation</th>
+        </thead>
+        <tbody>
+            {% for row in people %}
+            <tr>
+                <td style="vertical-align:middle">{{ row["fname"] }} {{ row["sname"] }}</td>
+                <td style="vertical-align:middle">
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to={{ row['email'] }}&tf=cm">{{ row["email"] }} </a>
+                </td>
+                <td style="vertical-align:middle">{{ row["subject"] }}</td>
+                <td>
+                    <form action="/admin/all_allocations" method="post">
+                        <button class="btn btn-danger" type="submit" name="delete" value="{{ row['id'] }}">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endif %}
+
+{% endblock %}

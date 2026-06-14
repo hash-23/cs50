@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    How it works
+{% endblock %}
+
+{% block main %}
+    <!-- provide descriptions on how to use the site, specific to tutors, admins and tutees-->
+    <h2>How this works</h2>
+    {% if session["isTutor"] %}
+        <h4>Tutor account instructions:</h4>
+        <h5>Use the navigation at the top of the page to see your subjects and add subject(s) you would like to tutor in<br> You can pick an existing subject from the list or add a new subject not on the list.</h5>
+        <br>
+        <h5>When a user requests tutoring in a certain subject on your list, they may be allocated to you.<br>Details of any users allocated to you will show up in a list on your homepage <br> From there, you can contact your tutees individually and arrange a breaktime for tutoring.</h5>
+    {% else %}
+        <h5>Use the navigation at the top of the page to reserve an allocation for a certain subject you would like tutoring in<br>Choose a subject from the list and pick your year group<br>Submit the request and you'll immediately be allocated a tutor from our team for that subject</h5>
+        <br>
+        <h5>Details of your tutor(s) will show up in a list on your homepage<br>From there, you can contact a certain tutor and arrange a breaktime for tutoring<br>Your tutor(s) will also be able contact you when you're allocated to them</h5>
+        <br>
+        <h5>If you would like tutoring in a subject not on the list, you can request a new a subject from the same page<br>After approval from admin, you may be allocated a tutor for that subject</h5>
+    {% endif %}
+
+
+    {% if session["isAdmin"] %}
+        <hr class="border border-secondary border-2 opacity-100">
+        <h4>Admin account instructions:</h4>
+        <h5>As admin, you have access to all of the user data, allocation data and tutor data<br>You can find these on the admin page at the navigation bar at the top</h5>
+        <br>
+        <h5>You can contact users individually and edit user account details in case someone has forgotten their login details or for other similar reasons<br>Non-admin users cannot edit their account name or email and cannot access data about other users<br>You can see details of the people involved in each allocation, the number of allocations a certain tutor has, and the subjects a tutor is offering</h5>
+        <br>
+        <h5>Be cautious when editing user details, as changes to a user account type between tutor and tutee may cause the deletion of allocations<br>Changes to user details or allocations <i>cannot</i> be undone once submitted</h5>
+
+    {% endif %}
+
+
+
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Your Subjects
+{% endblock %}
+
+{% block main %}
+    {% if subjects %}
+        <h4 class="h4">You are currently a tutor for these subjects:</h4>
+
+
+        <table class="table table-bordered" style="width:40vw; display:inline-block">
+            <thead>
+                <th scope="col">Subject</th>
+                <th scope="col">Remove Subject</th>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                    <tr scope="row">
+                        <td style="width:20vw; vertical-align:middle">{{ subject["subject"] }}</td>
+                        <td style="width:20vw"><form action="/subjects" method="post"><button class="btn btn-danger" type="submit" name="remove" value="{{ subject['subject'] }}">Remove</button></form></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="h4">You are not tutoring for any subjects</h4>
+    {% endif %}
+    <h4 class="h4">Add your subject(s) below</h4>
+
+        <form action="/subjects" method="post" class="mb-3">
+            <div class="input-group mx-auto" style="margin: auto; width:250px">
+                <select class="custom-select mx-auto" name="addSubject" style="border-radius:4px">
+                    <option selected disabled>Add an existing subject</option>
+                    {% for subject in existing %}
+                        <option value="{{ subject['subject'] }}">{{ subject['subject'] }}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary mx-auto" type="submit">Add</button>
+                </div>
+            </div>
+
+        </form>
+
+        <form action="/subjects" method="post" class="mb-3">
+            <div class="input-group mx-auto" style="margin: auto; width:250px">
+                <input type="text" class="mx-auto" name="addSubject" style="border-radius:4px; border-width:1px; padding:3px" placeholder="Add a new subject">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary mx-auto" type="submit">Add</button>
+                </div>
+            </div>
+        </form>
+
+
+{% endblock %}

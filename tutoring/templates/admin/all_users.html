@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin - All Users
+{% endblock %}
+
+{% block main %}
+    <button onclick="location.href= '/admin'" class="btn btn-secondary" style="display:block">Back to Admin</button>
+    <!-- add admin settings (ability to manage all users)-->
+    <!-- create table of all users and allow editing of details (and account deletion?) -->
+    <h3 class="h3">All Users</h3>
+    <table class="table table-sm table-hover">
+        <thead>
+            <th scope="col">User ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tutor</th>
+            <th scope="col">Admin</th>
+            <th scope="col">Edit</th>
+        </thead>
+
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{  user["id"] }}</td>
+                <td>{{ user["fname"] }} {{ user["sname"] }}</td>
+                <td>{{ user["username"] }}</td>
+                <td><a href="https://mail.google.com/mail/u/0/?fs=1&to={{ user['email'] }}&tf=cm">{{ user['email'] }}</a></td>
+                {% if user["isTutor"] %}
+                    <td>Yes</td>
+                {% else %}
+                    <td>No</td>
+                {% endif %}
+
+                {% if user["isAdmin"] %}
+                    <td>Yes</td>
+                {% else %}
+                    <td>No</td>
+                {% endif %}
+
+                <!-- td to edit-->
+                <td><a href="/edit?id={{ user['id'] }}">Edit User</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

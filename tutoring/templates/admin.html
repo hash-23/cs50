@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block main %}
+    <!-- add admin settings (ability to manage all users)-->
+    <!-- create table of all users and allow editing of details (and account deletion?) -->
+    <h3 class="h3"><a href="/admin/all_users">View All Users</a></h3>
+
+    <hr class="border border-secondary border-2 opacity-100">
+
+    <h3 class="h3"><a href="/admin/all_tutors">View All Tutors</a></h3>
+
+    <hr class="border border-secondary border-2 opacity-100">
+
+    <h3 class="h3"><a href="/admin/all_allocations">View All Allocations</a></h3>
+
+    {% if subjectRequests %}
+
+        <hr class="border border-secondary border-2 opacity-100">
+
+
+
+        <h3 class="h3">New Subject Requests</h3>
+        <table class="table table-striped">
+            <thead>
+                <th scope="col" style="width:27vw; vertical-align:middle">Name</th>
+                <th scope="col" style="width:27vw; vertical-align:middle">Email</th>
+                <th scope="col" style="width:27vw; vertical-align:middle">Subject</th>
+                <th scope="col" style="width:9vw">Delete Request</th>
+            </thead>
+            <tbody>
+                {% for request in subjectRequests %}
+                    <tr>
+                        <td style="vertical-align:middle">{{ request["fname"] }} {{ request["sname"] }}</td>
+                        <td style="vertical-align:middle"><a href="https://mail.google.com/mail/u/0/?fs=1&to={{ request['email'] }}&tf=cm">{{ request['email'] }}</td>
+                        <td style="vertical-align:middle">{{ request["subject"] }}</td>
+                        <td><form action="/admin" method="post"><button class="btn btn-danger" type="submit" name="delete" value="{{ request['subject'] }}">Delete</button></form></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

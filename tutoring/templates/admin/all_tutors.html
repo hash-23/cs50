@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin - All Tutors
+{% endblock %}
+
+{% block main %}
+    <button onclick="location.href= '/admin'" class="btn btn-secondary" style="display:block">Back to Admin</button>
+
+    <h3 class="h3">All Tutors</h3>
+    <table class="table table-hover">
+        <thead>
+            <th scope="col"  style="vertical-align:middle">User ID</th>
+            <th scope="col"  style="vertical-align:middle">Name</th>
+            <th scope="col" style="vertical-align:middle">Username</th>
+            <th scope="col" style="width:9vw">Number of Allocations</th>
+            <th scope="col" style="vertical-align:middle">Email</th>
+
+            <th scope="col" style="vertical-align:middle">Subjects</th>
+        </thead>
+
+        <tbody>
+            {% for tutor in tutors %}
+            <tr>
+                <td style="vertical-align:middle">{{  tutor["id"] }}</td>
+                <td style="vertical-align:middle">{{ tutor["fname"] }} {{ tutor["sname"] }}</td>
+                <td style="vertical-align:middle">{{ tutor["username"] }}</td>
+                <td  style="vertical-align:middle">{{ numTutees[tutor['id']] }}</td>
+                <td style="vertical-align:middle"><a href="https://mail.google.com/mail/u/0/?fs=1&to={{ tutor['email'] }}&tf=cm">{{ tutor['email'] }}</a></td>
+                <td style="width:fit-content">
+                    <div style="margin: auto; width:fit-content">
+                    <ul class="list-group list-group-horizontal" style="text-align:center">
+                        {% for subject in subjects %}
+                            {% if subject['tutor_id'] == tutor['id'] %}
+                            <li class="list-group-item" style="background-color:unset">
+                                {{ subject['subject'] }}
+                            </li>
+                            {% endif %}
+
+                        {% endfor %}
+                    </ul></div>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
